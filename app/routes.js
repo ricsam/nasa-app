@@ -12,34 +12,41 @@ const loadModule = (cb) => (componentModule) => {
   cb(null, componentModule.default);
 };
 
+
+const mainRoute = (path, injectReducer, injectSagas) => {
+  return {
+    path,
+    name: 'homePage',
+    getComponent(nextState, cb) {
+      const importModules = Promise.all([
+        import('containers/HomePage/reducer'),
+        import('containers/HomePage/sagas'),
+        import('containers/HomePage'),
+      ]);
+
+      const renderRoute = loadModule(cb);
+
+      importModules.then(([reducer, sagas, component]) => {
+
+        injectReducer('homePage', reducer.default);
+        injectSagas(sagas.default);
+
+        renderRoute(component);
+      });
+
+      importModules.catch(errorLoading);
+    }
+  };
+};
+
 export default function createRoutes(store) {
   // Create reusable async injectors using getAsyncInjectors factory
   const { injectReducer, injectSagas } = getAsyncInjectors(store); // eslint-disable-line no-unused-vars
 
   return [
+    mainRoute('/', injectReducer, injectSagas),
+    mainRoute('nasa-app', injectReducer, injectSagas),
     {
-      path: '/',
-      name: 'homePage',
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          import('containers/HomePage/reducer'),
-          import('containers/HomePage/sagas'),
-          import('containers/HomePage'),
-        ]);
-
-        const renderRoute = loadModule(cb);
-
-        importModules.then(([reducer, sagas, component]) => {
-
-          injectReducer('homePage', reducer.default);
-          injectSagas(sagas.default);
-
-          renderRoute(component);
-        });
-
-        importModules.catch(errorLoading);
-      },
-    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
