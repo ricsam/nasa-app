@@ -29,6 +29,10 @@ function appReducer(state = initialState, action) {
         .set('loading', true)
         .set('error', false);
 
+    case 'nasa-app/App/SEARCH':
+      return state
+        .set('loading', true)
+        .set('error', false);
 
     case 'nasa-app/App/NAVIGATE':
       return state
