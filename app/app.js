@@ -33,6 +33,9 @@ import '!file-loader?name=[name].[ext]!./manifest.json';
 import 'file-loader?name=[name].[ext]!./.htaccess';
 /* eslint-enable import/no-unresolved, import/extensions */
 
+import "!!style-loader!css-loader!../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+
 import configureStore from './store';
 
 // Import i18n messages
