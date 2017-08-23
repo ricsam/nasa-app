@@ -5,12 +5,10 @@
 ## Quick start
 
 1. Clone this repo using `git clone --depth=1 https://github.com/ricsam/nasa-app.git`
-2. Move to the appropriate directory: `cd nasa-app`.<br />
-3. Run `npm run setup` in order to install dependencies and clean the git repo.<br />
-   *We auto-detect `yarn` for installing packages by default, if you wish to force `npm` usage do: `USE_YARN=false npm run setup`*<br />
-   *At this point you can run `npm start` to see the example app at `http://localhost:3000`.*
-4. Run `npm start` to start local development server
-4. Run `npm run build` to build the project
+2. Move to the appropriate directory: `cd nasa-app`.
+3. Run `yarn install` or `npm install` in order to install dependencies.
+5. Run `npm start` to start local development server
+6. Run `npm run build` to build the project, built files can then be found in the directory /build
 
 Now you're ready to rumble!
 
